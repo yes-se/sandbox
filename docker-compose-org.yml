@@ -9,7 +9,6 @@ services:
         INFLUXDB_TAG: ${INFLUXDB_TAG}
     image: "influxdb"
     volumes:
-      # todo yesse - replace with volume if want to have metrics persistance
       # Mount for influxdb data directory
       - ./influxdb/data:/var/lib/influxdb
       # Mount for influxdb configuration
@@ -19,7 +18,7 @@ services:
       - "8086:8086"
       - "8082:8082"
       # UDP Port
-      - "8089:8089/udp"
+      - "8089:8089"
 
   telegraf:
     # Full tag list: https://hub.docker.com/r/library/telegraf/tags/
@@ -87,3 +86,8 @@ services:
       - influxdb
       - telegraf
 
+  documentation:
+    build:
+      context: ./documentation
+    ports:
+      - "3010:3000"
